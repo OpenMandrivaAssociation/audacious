@@ -11,7 +11,7 @@
 %endif
 %else
 %define fname %name-%version
-%define release %mkrel 1
+%define release %mkrel 2
 %endif
 %define major 		5
 %define libname 	%mklibname %{name} %{major}
@@ -23,6 +23,8 @@ Version:	1.3.2
 Release:	%release
 Epoch:		4
 Source0:	http://audacious-media-player.org/release/%fname.tar.bz2
+# don't use bitmap fonts by default in the main window
+Patch: audacious-1.3.2-no-bitmap-fonts.patch
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.3.0-alpha3-xmms-skins.patch
 License:	GPL
@@ -78,6 +80,7 @@ which use %{name}.
 %else
 %setup -q -n %fname
 %endif
+%patch -p1 -b .no-bitmap-fonts
 %patch1 -p1 -b .ski
 %if %svn
 sh ./autogen.sh
