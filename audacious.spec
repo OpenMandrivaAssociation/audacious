@@ -19,7 +19,7 @@
 
 Summary:	A versatile and handy media player
 Name:		%name
-Version:	1.3.1
+Version:	1.3.2
 Release:	%release
 Epoch:		4
 Source0:	http://audacious-media-player.org/release/%fname.tar.bz2
@@ -85,7 +85,7 @@ sh ./autogen.sh
 autoconf
 
 %build
-%configure2_5x
+%configure2_5x --enable-chardet
 %make
 make documentation-build
 
@@ -151,5 +151,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/%name/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
-
-
