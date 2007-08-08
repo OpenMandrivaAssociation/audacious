@@ -11,7 +11,7 @@
 %endif
 %else
 %define fname %name-%version
-%define release %mkrel 2
+%define release %mkrel 3
 %endif
 %define major 		5
 %define libname 	%mklibname %{name} %{major}
@@ -27,6 +27,8 @@ Source0:	http://audacious-media-player.org/release/%fname.tar.bz2
 Patch: audacious-1.3.2-no-bitmap-fonts.patch
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.3.0-alpha3-xmms-skins.patch
+# http://bugs-meta.atheme-project.org/view.php?id=1006
+Patch2: audacious-1.3-no-convert-slash.patch
 License:	GPL
 Group:		Sound
 Url:		http://audacious-media-player.org/
@@ -82,6 +84,7 @@ which use %{name}.
 %endif
 %patch -p1 -b .no-bitmap-fonts
 %patch1 -p1 -b .ski
+%patch2 -p0
 %if %svn
 sh ./autogen.sh
 %endif
