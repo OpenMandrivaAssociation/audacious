@@ -35,6 +35,7 @@ BuildRequires:	libglade2.0-devel
 BuildRequires:  libmcs-devel >= 0.4.0
 BuildRequires:  libmowgli-devel >= 0.4.0
 BuildRequires:	gtk2-devel >= 2.6.0
+BuildRequires:	dbus-glib-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
