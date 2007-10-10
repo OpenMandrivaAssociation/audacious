@@ -1,6 +1,6 @@
 %define name audacious
 %define svn 0
-%define pre 0
+%define pre dr4
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.1
@@ -11,30 +11,29 @@
 %endif
 %else
 %define fname %name-%version
-%define release %mkrel 3
+%define release %mkrel 1
 %endif
-%define major 		5
+%define major 		1
 %define libname 	%mklibname %{name} %{major}
-%define libname_devel 	%mklibname %{name} %{major} -d
+%define libname_devel 	%mklibname %{name} -d
 
 Summary:	A versatile and handy media player
 Name:		%name
-Version:	1.3.2
+Version:	1.4.0
 Release:	%release
 Epoch:		4
-Source0:	http://audacious-media-player.org/release/%fname.tar.bz2
+Source0:	http://audacious-media-player.org/release/%fname.tbz2
 # don't use bitmap fonts by default in the main window
 Patch: audacious-1.3.2-no-bitmap-fonts.patch
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.3.0-alpha3-xmms-skins.patch
-# http://bugs-meta.atheme-project.org/view.php?id=1006
-Patch2: audacious-1.3-no-convert-slash.patch
 License:	GPL
 Group:		Sound
 Url:		http://audacious-media-player.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libglade2.0-devel
-BuildRequires:  libmcs-devel
+BuildRequires:  libmcs-devel >= 0.4.0
+BuildRequires:  libmowgli-devel >= 0.4.0
 BuildRequires:	gtk2-devel >= 2.6.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  chrpath
@@ -84,7 +83,13 @@ which use %{name}.
 %endif
 %patch -p1 -b .no-bitmap-fonts
 %patch1 -p1 -b .ski
-%patch2 -p0
+#gw add missing file:
+cat > src/audacious/build_stamp.c << EOF
+#include <glib.h>
+
+const gchar *svn_stamp = "developer release 4";
+EOF
+
 %if %svn
 sh ./autogen.sh
 %endif
@@ -99,9 +104,9 @@ make documentation-build
 rm -rf $RPM_BUILD_ROOT installed-docs
 %makeinstall_std
 chrpath -d %buildroot%_bindir/*
-mkdir installed-docs
-cp -r doc/audacious/html installed-docs/audacious
-cp -r doc/libaudacious/html installed-docs/libaudacious
+#mkdir installed-docs
+#cp -r doc/audacious/html installed-docs/audacious
+#cp -r doc/libaudacious/html installed-docs/libaudacious
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
@@ -152,7 +157,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{libname_devel}
 %defattr(0644,root,root,0755)
-%doc installed-docs/*
+#%doc installed-docs/*
 %dir %{_includedir}/%name
 %{_includedir}/%name/*
 %{_libdir}/*.so
