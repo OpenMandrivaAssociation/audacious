@@ -6,7 +6,7 @@
 %define release	%mkrel 0.%pre.%svn.1
 %define fname %name-%svn
 %else
-%define release	%mkrel 0.%pre.2
+%define release	%mkrel 0.%pre.3
 %define fname %name-%version-%pre
 %endif
 %else
@@ -66,6 +66,7 @@ Group:		Development/C
 Requires:	%{libname} = %{epoch}:%{version}
 Provides:	lib%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	%{name}-devel = %{epoch}:%{version}-%{release}
+Obsoletes:	%mklibname -d %name 5
 Epoch: %epoch
 
 %description -n %{libname_devel}
@@ -109,7 +110,7 @@ chrpath -d %buildroot%_bindir/*
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
-  --add-category="X-MandrivaLinux-Multimedia-Sound" \
+  --add-category="Audio" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
 rm -rf %buildroot%_datadir/audacious/applications/
 
