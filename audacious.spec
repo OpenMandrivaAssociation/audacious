@@ -1,6 +1,6 @@
 %define name audacious
 %define svn 0
-%define pre dr4
+%define pre beta1
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.1
@@ -21,7 +21,7 @@ Summary:	A versatile and handy media player
 Name:		%name
 Version:	1.4.0
 Release:	%release
-Epoch:		4
+Epoch:		5
 Source0:	http://audacious-media-player.org/release/%fname.tbz2
 # don't use bitmap fonts by default in the main window
 Patch: audacious-1.3.2-no-bitmap-fonts.patch
@@ -63,8 +63,6 @@ This package contains the library needed by %{name}.
 %package -n %{libname_devel}
 Summary:	Development files for %{name}
 Group:		Development/C
-# gw for libaudid3tag.so
-Requires:	%name = %{epoch}:%{version}
 Requires:	%{libname} = %{epoch}:%{version}
 Provides:	lib%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	%{name}-devel = %{epoch}:%{version}-%{release}
@@ -85,11 +83,11 @@ which use %{name}.
 %patch -p1 -b .no-bitmap-fonts
 %patch1 -p1 -b .ski
 #gw add missing file:
-cat > src/audacious/build_stamp.c << EOF
+#cat > src/audacious/build_stamp.c << EOF
 #include <glib.h>
-
-const gchar *svn_stamp = "developer release 4";
-EOF
+#
+#const gchar *svn_stamp = "developer release 4";
+#EOF
 
 %if %svn
 sh ./autogen.sh
@@ -99,7 +97,7 @@ autoconf
 %build
 %configure2_5x --enable-chardet
 %make
-make documentation-build
+#make documentation-build
 
 %install
 rm -rf $RPM_BUILD_ROOT installed-docs
@@ -113,7 +111,7 @@ desktop-file-install --vendor="" \
   --remove-category="Application" \
   --add-category="X-MandrivaLinux-Multimedia-Sound" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
-
+rm -rf %buildroot%_datadir/audacious/applications/
 
 %find_lang %name
 rm -f %buildroot%_includedir/mp4.h
@@ -135,8 +133,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(0755,root,root,0755)
 %_bindir/audtool
 %{_bindir}/%name
-%dir %_libdir/%name/
-%_libdir/%name/libaudid3tag.so
 %defattr(0644,root,root,0755)
 %doc AUTHORS NEWS README
 %{_datadir}/applications/%name.desktop
