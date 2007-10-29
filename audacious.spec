@@ -1,6 +1,6 @@
 %define name audacious
 %define svn 0
-%define pre beta2
+%define pre beta4
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.1
@@ -152,6 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{libname}
 %defattr(0644,root,root,0755)
 %{_libdir}/*.so.%{major}*
+%{_libdir}/audacious/libaudid3tag.so.%{major}*
 
 %files -n %{libname_devel}
 %defattr(0644,root,root,0755)
@@ -159,4 +160,5 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/%name
 %{_includedir}/%name/*
 %{_libdir}/*.so
+%{_libdir}/audacious/libaudid3tag.so
 %{_libdir}/pkgconfig/*.pc
