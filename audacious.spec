@@ -1,17 +1,18 @@
 %define name audacious
 %define svn 0
-%define pre beta4
+%define pre rc1
+%define rel 1
 %if %pre
 %if %svn
-%define release	%mkrel 0.%pre.%svn.1
+%define release	%mkrel 0.%pre.%svn.%rel
 %define fname %name-%svn
 %else
-%define release	%mkrel 0.%pre.1
+%define release	%mkrel 0.%pre.%rel
 %define fname %name-%version-%pre
 %endif
 %else
 %define fname %name-%version
-%define release %mkrel 1
+%define release %mkrel %rel
 %endif
 %define major 		1
 %define libname 	%mklibname %{name} %{major}
