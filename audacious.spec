@@ -1,6 +1,7 @@
 %define name audacious
+%define version 1.4.2
 %define svn 0
-%define pre rc1
+%define pre 0
 %define rel 1
 %if %pre
 %if %svn
@@ -20,7 +21,7 @@
 
 Summary:	A versatile and handy media player
 Name:		%name
-Version:	1.4.0
+Version:        %version
 Release:	%release
 Epoch:		5
 Source0:	http://audacious-media-player.org/release/%fname.tbz2
