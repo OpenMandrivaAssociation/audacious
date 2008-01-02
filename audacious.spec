@@ -32,6 +32,7 @@ Patch1:		audacious-1.3.0-alpha3-xmms-skins.patch
 License:	GPL
 Group:		Sound
 Url:		http://audacious-media-player.org/
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libglade2.0-devel
 BuildRequires:  libmcs-devel >= 0.4.0
 BuildRequires:  libmowgli-devel >= 0.4.0
