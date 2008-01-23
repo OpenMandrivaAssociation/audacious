@@ -2,7 +2,7 @@
 %define version 1.4.5
 %define svn 0
 %define pre 0
-%define rel 2
+%define rel 3
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.%rel
@@ -47,6 +47,7 @@ Provides:	beep-media-player
 Obsoletes:	beep-media-player
 Requires(post):  desktop-file-utils
 Requires(postun):  desktop-file-utils
+Suggests: audacious-pulse
 
 %description
 Audacious is a media player based on the BMP music playing application.
