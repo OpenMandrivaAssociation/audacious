@@ -1,8 +1,8 @@
 %define name audacious
-%define version 1.4.6
+%define version 1.5.0
 %define svn 0
 %define pre 0
-%define rel 2
+%define rel 1
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.%rel
@@ -25,8 +25,6 @@ Version:        %version
 Release:	%release
 Epoch:		5
 Source0:	http://audacious-media-player.org/release/%fname.tbz2
-# don't use bitmap fonts by default in the main window
-Patch: audacious-1.3.2-no-bitmap-fonts.patch
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.3.0-alpha3-xmms-skins.patch
 License:	GPL
@@ -84,7 +82,6 @@ which use %{name}.
 %else
 %setup -q -n %fname
 %endif
-%patch -p1 -b .no-bitmap-fonts
 %patch1 -p1 -b .ski
 #gw add missing file:
 #cat > src/audacious/build_stamp.c << EOF
@@ -141,8 +138,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS NEWS README
 %{_datadir}/applications/%name.desktop
 %dir %{_datadir}/%name
-%dir %{_datadir}/%name/glade
-%{_datadir}/%name/glade/*.glade
 %dir %{_datadir}/%name/images
 %{_datadir}/%name/images/*.png
 %{_datadir}/%name/images/*.xpm
@@ -155,13 +150,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{libname}
 %defattr(0644,root,root,0755)
 %{_libdir}/*.so.%{major}*
-%{_libdir}/audacious/libaudid3tag.so.%{major}*
 
 %files -n %{libname_devel}
 %defattr(0644,root,root,0755)
 #%doc installed-docs/*
 %dir %{_includedir}/%name
 %{_includedir}/%name/*
+%_includedir/libSAD
 %{_libdir}/*.so
-%{_libdir}/audacious/libaudid3tag.so
 %{_libdir}/pkgconfig/*.pc
