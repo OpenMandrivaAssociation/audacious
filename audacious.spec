@@ -1,8 +1,8 @@
 %define name audacious
-%define version 1.5.0
+%define version 1.5.1
 %define svn 0
 %define pre 0
-%define rel 2
+%define rel 1
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.%rel
@@ -26,7 +26,7 @@ Release:	%release
 Epoch:		5
 Source0:	http://audacious-media-player.org/release/%fname.tbz2
 # Patch to make it check ~/.xmms for skins too
-Patch1:		audacious-1.3.0-alpha3-xmms-skins.patch
+Patch1:		audacious-1.5.1-xmms-skins.patch
 License:	GPL
 Group:		Sound
 Url:		http://audacious-media-player.org/
@@ -96,6 +96,7 @@ sh ./autogen.sh
 autoconf
 
 %build
+%define _disable_ld_no_undefined 1
 %configure2_5x --enable-chardet \
 %ifarch %ix86
 --disable-sse2 \
