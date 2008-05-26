@@ -88,8 +88,6 @@ sh ./autogen.sh
 %endif
 
 %build
-#gw else libaudid3tag does not build
-%define _disable_ld_no_undefined 1
 %configure2_5x --enable-chardet \
 %ifarch %ix86
 --disable-sse2 \
