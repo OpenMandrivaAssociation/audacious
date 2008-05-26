@@ -83,19 +83,12 @@ which use %{name}.
 %setup -q -n %fname
 %endif
 %patch1 -p1 -b .ski
-#gw add missing file:
-#cat > src/audacious/build_stamp.c << EOF
-#include <glib.h>
-#
-#const gchar *svn_stamp = "developer release 4";
-#EOF
-
 %if %svn
 sh ./autogen.sh
 %endif
-autoconf
 
 %build
+#gw else libaudid3tag does not build
 %define _disable_ld_no_undefined 1
 %configure2_5x --enable-chardet \
 %ifarch %ix86
