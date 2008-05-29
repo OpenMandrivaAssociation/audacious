@@ -88,6 +88,8 @@ sh ./autogen.sh
 %endif
 
 %build
+#gw: else libid3tag does not build
+%define _disable_ld_no_undefined
 %configure2_5x --enable-chardet \
 %ifarch %ix86
 --disable-sse2 \
