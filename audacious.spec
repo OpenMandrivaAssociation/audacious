@@ -2,7 +2,7 @@
 %define version 1.5.1
 %define svn 0
 %define pre 0
-%define rel 2
+%define rel 3
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.%rel
@@ -25,6 +25,10 @@ Version:        %version
 Release:	%release
 Epoch:		5
 Source0:	http://audacious-media-player.org/release/%fname.tbz2
+#gw from HG: Handle properly the situation when player is not running
+#and files are added from commandline.
+#should fix bug #41360
+Patch: audacious-4593.patch
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.5.1-xmms-skins.patch
 License:	GPL
@@ -82,6 +86,7 @@ which use %{name}.
 %else
 %setup -q -n %fname
 %endif
+%patch -p1
 %patch1 -p1 -b .ski
 %if %svn
 sh ./autogen.sh
