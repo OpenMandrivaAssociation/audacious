@@ -2,7 +2,7 @@
 %define version 1.5.1
 %define svn 0
 %define pre 0
-%define rel 3
+%define rel 2
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.%rel
@@ -94,7 +94,7 @@ sh ./autogen.sh
 
 %build
 #gw: else libid3tag does not build
-%define _disable_ld_no_undefined
+%define _disable_ld_no_undefined 1
 %configure2_5x --enable-chardet \
 %ifarch %ix86
 --disable-sse2 \
