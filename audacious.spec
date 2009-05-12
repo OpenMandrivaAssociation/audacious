@@ -1,8 +1,8 @@
 %define name audacious
-%define version 1.5.1
+%define version 2.0
 %define svn 0
-%define pre 0
-%define rel 4
+%define pre beta1
+%define rel 1
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.%rel
@@ -17,6 +17,8 @@
 %endif
 %define major 		1
 %define libname 	%mklibname %{name} %{major}
+%define major2 		2
+%define libname2 	%mklibname %{name} %{major2}
 %define libname_devel 	%mklibname %{name} -d
 
 Summary:	A versatile and handy media player
@@ -24,14 +26,10 @@ Name:		%name
 Version:        %version
 Release:	%release
 Epoch:		5
-Source0:	http://audacious-media-player.org/release/%fname.tbz2
-#gw from HG: Handle properly the situation when player is not running
-#and files are added from commandline.
-#should fix bug #41360
-Patch: audacious-4593.patch
+Source0:	http://audacious-media-player.org/release/%fname.tgz
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.5.1-xmms-skins.patch
-Patch2:		audacious-1.5.1-format-strings.patch
+Patch2:		audacious-2.0-alpha1-fix-format-strings.patch
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
@@ -46,6 +44,7 @@ BuildRequires:  chrpath
 BuildRequires:  gtk-doc
 Requires: audacious-plugins
 Requires:	%{libname} = %epoch:%{version}
+Requires:	%{libname2} = %epoch:%{version}
 Provides:	beep-media-player
 Obsoletes:	beep-media-player
 Requires(post):  desktop-file-utils
@@ -66,10 +65,21 @@ Audacious is a media player based on the BMP music playing application.
 Its primary goals are usability and usage of current desktop standards.
 This package contains the library needed by %{name}.
 
+%package -n %{libname2}
+Group:		System/Libraries
+Summary:	Library for %{name}
+Epoch: %epoch
+
+%description -n %{libname2}
+Audacious is a media player based on the BMP music playing application.
+Its primary goals are usability and usage of current desktop standards.
+This package contains the library needed by %{name}.
+
 %package -n %{libname_devel}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{libname} = %{epoch}:%{version}
+Requires:	%{libname2} = %{epoch}:%{version}
 Provides:	lib%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	%{name}-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	%mklibname -d %name 5
@@ -87,8 +97,6 @@ which use %{name}.
 %else
 %setup -q -n %fname
 %endif
-%patch -p1
-%patch1 -p1 -b .ski
 %patch2 -p1
 %if %svn
 sh ./autogen.sh
@@ -134,18 +142,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%post -n %{libname2} -p /sbin/ldconfig
+%postun -n %{libname2} -p /sbin/ldconfig
 %endif
 
 %files -f %name.lang
 %defattr(0755,root,root,0755)
-%_bindir/audtool
-%{_bindir}/%name
+%_bindir/audtool2
+%{_bindir}/%{name}2
 %defattr(0644,root,root,0755)
 %doc AUTHORS NEWS README
-%{_datadir}/applications/%name.desktop
+%{_datadir}/applications/%{name}2.desktop
 %dir %{_datadir}/%name
 %dir %{_datadir}/%name/images
 %{_datadir}/%name/images/*.png
@@ -154,16 +162,23 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%name/Skins/*
 %{_datadir}/%name/ui/
 %{_mandir}/man1/*
-%_datadir/pixmaps/%name.png
+%_datadir/pixmaps/%{name}2.png
 
 %files -n %{libname}
 %defattr(0644,root,root,0755)
 %{_libdir}/*.so.%{major}*
 
+%files -n %{libname2}
+%defattr(0644,root,root,0755)
+%_libdir/libSAD.so.%{major2}*
+%_libdir/libaudclient.so.%{major2}*
+%_libdir/libaudid3tag.so.%{major2}*
+
 %files -n %{libname_devel}
 %defattr(0644,root,root,0755)
 #%doc installed-docs/*
 %dir %{_includedir}/%name
+%{_includedir}/libaudcore
 %{_includedir}/%name/*
 %_includedir/libSAD
 %{_libdir}/*.so
