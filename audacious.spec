@@ -2,7 +2,7 @@
 %define version 2.1
 %define svn 0
 %define pre 0
-%define rel 1
+%define rel 2
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.%rel
@@ -27,6 +27,10 @@ Version:        %version
 Release:	%release
 Epoch:		5
 Source0:	http://audacious-media-player.org/release/%fname.tgz
+#gw from hg, remove references to libudet
+#fixes Japanese and Chinese charsets as well
+#https://qa.mandriva.com/show_bug.cgi?id=52712
+Patch: 		audacious-remove-libudet.patch
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.5.1-xmms-skins.patch
 Patch2:		audacious-2.0-alpha1-fix-format-strings.patch
@@ -97,6 +101,7 @@ which use %{name}.
 %else
 %setup -q -n %fname
 %endif
+%patch -p1
 %patch2 -p1
 %if %svn
 sh ./autogen.sh
