@@ -1,8 +1,8 @@
 %define name audacious
-%define version 2.1
+%define version 2.2
 %define svn 0
-%define pre 0
-%define rel 2
+%define pre beta1
+%define rel 1
 %if %pre
 %if %svn
 %define release	%mkrel 0.%pre.%svn.%rel
@@ -27,13 +27,8 @@ Version:        %version
 Release:	%release
 Epoch:		5
 Source0:	http://audacious-media-player.org/release/%fname.tgz
-#gw from hg, remove references to libudet
-#fixes Japanese and Chinese charsets as well
-#https://qa.mandriva.com/show_bug.cgi?id=52712
-Patch: 		audacious-remove-libudet.patch
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.5.1-xmms-skins.patch
-Patch2:		audacious-2.0-alpha1-fix-format-strings.patch
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
@@ -101,8 +96,6 @@ which use %{name}.
 %else
 %setup -q -n %fname
 %endif
-%patch -p1
-%patch2 -p1
 %if %svn
 sh ./autogen.sh
 %endif
@@ -154,17 +147,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %name.lang
 %defattr(0755,root,root,0755)
+%_bindir/audtool
 %_bindir/audtool2
+%{_bindir}/%{name}
 %{_bindir}/%{name}2
 %defattr(0644,root,root,0755)
 %doc AUTHORS NEWS README
 %{_datadir}/applications/%{name}2.desktop
+%{_datadir}/applications/%{name}2-gtkui.desktop
 %dir %{_datadir}/%name
 %dir %{_datadir}/%name/images
 %{_datadir}/%name/images/*.png
 %{_datadir}/%name/images/*.xpm
-%dir %{_datadir}/%name/Skins
-%{_datadir}/%name/Skins/*
 %{_datadir}/%name/ui/
 %{_mandir}/man1/*
 %_datadir/pixmaps/%{name}2.png
@@ -184,6 +178,8 @@ rm -rf $RPM_BUILD_ROOT
 #%doc installed-docs/*
 %dir %{_includedir}/%name
 %{_includedir}/libaudcore
+%{_includedir}/libaudgui
+%{_includedir}/libaudtag
 %{_includedir}/%name/*
 %_includedir/libSAD
 %{_libdir}/*.so
