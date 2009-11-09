@@ -48,7 +48,6 @@ Provides:	beep-media-player
 Obsoletes:	beep-media-player
 Requires(post):  desktop-file-utils
 Requires(postun):  desktop-file-utils
-Suggests: audacious-pulse
 
 %description
 Audacious is a media player based on the BMP music playing application.
