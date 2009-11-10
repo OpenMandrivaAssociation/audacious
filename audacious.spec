@@ -41,6 +41,7 @@ BuildRequires:	dbus-glib-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
+Suggests: audacious-pulse
 Requires: audacious-plugins
 Requires:	%{libname} = %epoch:%{version}
 Requires:	%{libname2} = %epoch:%{version}
