@@ -1,14 +1,14 @@
 %define name audacious
-%define version 2.2
+%define version 2.3
 %define svn 0
 %define pre 0
 %define rel 1
 %if %pre
 %if %svn
-%define release	%mkrel 0.%pre.%svn.%rel
+%define release	%mkrel -c %pre.%svn %rel
 %define fname %name-%svn
 %else
-%define release	%mkrel 0.%pre.%rel
+%define release	%mkrel -c  %pre %rel
 %define fname %name-%version-%pre
 %endif
 %else
@@ -169,7 +169,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{libname2}
 %defattr(0644,root,root,0755)
-%_libdir/libSAD.so.%{major2}*
 %_libdir/libaudclient.so.%{major2}*
 %_libdir/libaudid3tag.so.%{major2}*
 
@@ -181,6 +180,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/libaudgui
 %{_includedir}/libaudtag
 %{_includedir}/%name/*
-%_includedir/libSAD
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
