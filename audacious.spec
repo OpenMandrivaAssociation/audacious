@@ -2,7 +2,7 @@
 %define version 2.3
 %define svn 0
 %define pre 0
-%define rel 1
+%define rel 2
 %if %pre
 %if %svn
 %define release	%mkrel -c %pre.%svn %rel
@@ -127,7 +127,9 @@ rm -rf %buildroot%_datadir/audacious/applications/
 
 %find_lang %name
 rm -f %buildroot%_includedir/mp4.h
-
+#gw fix broken symlinks:
+ln -sf audacious2 %buildroot%_bindir/audacious
+ln -sf audtool2 %buildroot%_bindir/audtool
 
 %clean
 rm -rf $RPM_BUILD_ROOT
