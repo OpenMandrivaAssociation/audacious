@@ -1,8 +1,8 @@
 %define name audacious
-%define version 2.3
+%define version 2.4
 %define svn 0
-%define pre 0
-%define rel 2
+%define pre beta1
+%define rel 1
 %if %pre
 %if %svn
 %define release	%mkrel -c %pre.%svn %rel
@@ -38,6 +38,7 @@ BuildRequires:  libmcs-devel >= 0.4.0
 BuildRequires:  libmowgli-devel >= 0.4.0
 BuildRequires:	gtk2-devel >= 2.6.0
 BuildRequires:	dbus-glib-devel
+BuildRequires:	libguess-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  chrpath
 BuildRequires:  gtk-doc
@@ -127,25 +128,9 @@ rm -rf %buildroot%_datadir/audacious/applications/
 
 %find_lang %name
 rm -f %buildroot%_includedir/mp4.h
-#gw fix broken symlinks:
-ln -sf audacious2 %buildroot%_bindir/audacious
-ln -sf audtool2 %buildroot%_bindir/audtool
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post
-%update_desktop_database
-
-%postun
-%clean_desktop_database
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%postun -n %{libname} -p /sbin/ldconfig
-%post -n %{libname2} -p /sbin/ldconfig
-%postun -n %{libname2} -p /sbin/ldconfig
-%endif
 
 %files -f %name.lang
 %defattr(0755,root,root,0755)
@@ -156,14 +141,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(0644,root,root,0755)
 %doc AUTHORS NEWS README
 %{_datadir}/applications/%{name}2.desktop
-%{_datadir}/applications/%{name}2-gtkui.desktop
 %dir %{_datadir}/%name
 %dir %{_datadir}/%name/images
 %{_datadir}/%name/images/*.png
 %{_datadir}/%name/images/*.xpm
-%{_datadir}/%name/ui/
+%_datadir/pixmaps/audacious.*
+%_datadir/icons/hicolor/*/apps/*
 %{_mandir}/man1/*
-%_datadir/pixmaps/%{name}2.png
 
 %files -n %{libname}
 %defattr(0644,root,root,0755)
@@ -172,15 +156,13 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %{libname2}
 %defattr(0644,root,root,0755)
 %_libdir/libaudclient.so.%{major2}*
-%_libdir/libaudid3tag.so.%{major2}*
 
 %files -n %{libname_devel}
 %defattr(0644,root,root,0755)
-#%doc installed-docs/*
 %dir %{_includedir}/%name
 %{_includedir}/libaudcore
 %{_includedir}/libaudgui
-%{_includedir}/libaudtag
+
 %{_includedir}/%name/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
