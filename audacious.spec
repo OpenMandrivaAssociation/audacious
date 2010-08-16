@@ -1,7 +1,7 @@
 %define name audacious
 %define version 2.4
 %define svn 0
-%define pre rc1
+%define pre rc2
 %define rel 1
 %if %pre
 %if %svn
