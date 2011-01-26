@@ -33,7 +33,6 @@ License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	libglade2.0-devel
 BuildRequires:  libmcs-devel >= 0.4.0
 BuildRequires:  libmowgli-devel >= 0.4.0
 BuildRequires:	gtk2-devel >= 2.6.0
