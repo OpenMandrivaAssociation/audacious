@@ -1,5 +1,5 @@
 %define name audacious
-%define version 2.4.4
+%define version 2.5.0
 %define svn 0
 %define pre 0
 %define rel 1
@@ -34,7 +34,7 @@ Group:		Sound
 Url:		http://audacious-media-player.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:  libmcs-devel >= 0.4.0
-BuildRequires:  libmowgli-devel >= 0.4.0
+BuildRequires:  libmowgli-devel >= 0.9
 BuildRequires:	gtk2-devel >= 2.6.0
 BuildRequires:	dbus-glib-devel
 BuildRequires:	libguess-devel
@@ -134,12 +134,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %name.lang
 %defattr(0755,root,root,0755)
 %_bindir/audtool
-%_bindir/audtool2
 %{_bindir}/%{name}
-%{_bindir}/%{name}2
 %defattr(0644,root,root,0755)
 %doc AUTHORS NEWS README
-%{_datadir}/applications/%{name}2.desktop
+%{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%name
 %dir %{_datadir}/%name/images
 %{_datadir}/%name/images/*.png
