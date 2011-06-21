@@ -1,5 +1,5 @@
 %define name audacious
-%define version 2.5.1
+%define version 2.5.2
 %define svn 0
 %define pre 0
 %define rel 1
@@ -26,7 +26,7 @@ Name:		%name
 Version:        %version
 Release:	%release
 Epoch:		5
-Source0:	http://distfiles.atheme.org/%fname.tgz
+Source0:	http://distfiles.atheme.org/%fname.tar.bz2
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.5.1-xmms-skins.patch
 License:	GPLv3+
