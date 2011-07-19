@@ -1,5 +1,5 @@
 %define name audacious
-%define version 2.5.4
+%define version 3.0
 %define svn 0
 %define pre 0
 %define rel 1
@@ -36,6 +36,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:  libmcs-devel >= 0.4.0
 BuildRequires:  libmowgli-devel >= 0.9
 BuildRequires:	gtk2-devel >= 2.6.0
+#BuildRequires:	gtk3-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	libguess-devel
 BuildRequires:  desktop-file-utils
