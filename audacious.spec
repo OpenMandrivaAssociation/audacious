@@ -1,7 +1,7 @@
 %define name audacious
 %define version 3.1
 %define svn 0
-%define pre beta2
+%define pre beta3
 %define rel 1
 %if %pre
 %if %svn
@@ -104,10 +104,7 @@ sh ./autogen.sh
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%configure2_5x --enable-chardet \
-%ifarch %ix86
---disable-sse2 \
-%endif
+%configure2_5x --enable-chardet
 
 %make
 #make documentation-build
