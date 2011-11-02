@@ -2,7 +2,7 @@
 %define version 3.1
 %define svn 0
 %define pre beta3
-%define rel 1
+%define rel 2
 %if %pre
 %if %svn
 %define release	%mkrel -c %pre.%svn %rel
@@ -35,8 +35,11 @@ Url:		http://audacious-media-player.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:  libmcs-devel >= 0.4.0
 BuildRequires:  libmowgli-devel >= 0.9
+%if %mdvver >= 201100
+BuildRequires:	gtk+3-devel
+%else
 BuildRequires:	gtk2-devel >= 2.6.0
-#BuildRequires:	gtk3-devel
+%endif
 BuildRequires:	dbus-glib-devel
 BuildRequires:	libguess-devel
 BuildRequires:  desktop-file-utils
