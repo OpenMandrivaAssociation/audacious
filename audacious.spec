@@ -21,8 +21,7 @@ Version:        %version
 Release:	%release
 Epoch:		5
 Source0:	http://distfiles.audacious-media-player.org/%fname.tar.bz2
-# Patch to make it check ~/.xmms for skins too
-Patch1:		audacious-1.5.1-xmms-skins.patch
+Patch0:		audacious-3.2-beta1-linking.patch
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
@@ -89,6 +88,7 @@ which use %{name}.
 
 %prep
 %setup -q -n %fname
+%apply_patches
 
 %build
 #gw: else libid3tag does not build
