@@ -1,16 +1,10 @@
 %define name audacious
-%define version 3.1.1
-%define svn 0
-%define prerel 0
+%define version 3.2
+%define prerel beta1
 %define rel 1
 %if %prerel
-%if %svn
-%define release	%mkrel -c %prerel.%svn %rel
-%define fname %name-%svn
-%else
 %define release	%mkrel -c  %prerel %rel
 %define fname %name-%version-%prerel
-%endif
 %else
 %define fname %name-%version
 %define release %mkrel %rel
@@ -26,7 +20,7 @@ Name:		%name
 Version:        %version
 Release:	%release
 Epoch:		5
-Source0:	http://distfiles.atheme.org/%fname.tar.bz2
+Source0:	http://distfiles.audacious-media-player.org/%fname.tar.bz2
 # Patch to make it check ~/.xmms for skins too
 Patch1:		audacious-1.5.1-xmms-skins.patch
 License:	GPLv3+
@@ -34,7 +28,6 @@ Group:		Sound
 Url:		http://audacious-media-player.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:  libmcs-devel >= 0.4.0
-BuildRequires:  libmowgli-devel >= 0.9
 %if %mdvver >= 201100
 BuildRequires:	gtk+3-devel
 %else
@@ -95,14 +88,7 @@ This package contains the files needed for developing applications
 which use %{name}.
 
 %prep
-%if %svn
-%setup -q -n %name
-%else
 %setup -q -n %fname
-%endif
-%if %svn
-sh ./autogen.sh
-%endif
 
 %build
 #gw: else libid3tag does not build
