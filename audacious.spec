@@ -123,7 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/audtool
 %{_bindir}/%{name}
 %defattr(0644,root,root,0755)
-%doc AUTHORS NEWS README
+%doc AUTHORS README
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%name
 %dir %{_datadir}/%name/images
