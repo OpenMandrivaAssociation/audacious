@@ -1,5 +1,5 @@
 %define name audacious
-%define version 3.2
+%define version 3.2.1
 %define prerel 0
 %define rel 1
 %if %prerel
