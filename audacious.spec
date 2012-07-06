@@ -1,5 +1,5 @@
 %define name audacious
-%define version 3.2.3
+%define version 3.2.4
 %define prerel 0
 %define rel 1
 %if %prerel
@@ -123,7 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/audtool
 %{_bindir}/%{name}
 %defattr(0644,root,root,0755)
-%doc AUTHORS README
+%doc AUTHORS
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%name
 %dir %{_datadir}/%name/images
