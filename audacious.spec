@@ -1,5 +1,5 @@
 %define name audacious
-%define version 3.2.4
+%define version 3.3
 %define prerel 0
 %define rel 1
 %if %prerel
@@ -21,17 +21,12 @@ Version:        %version
 Release:	%release
 Epoch:		5
 Source0:	http://distfiles.audacious-media-player.org/%fname.tar.bz2
-Patch0:		audacious-3.2-beta1-linking.patch
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:  libmcs-devel >= 0.4.0
-%if %mdvver >= 201100
 BuildRequires:	gtk+3-devel
-%else
-BuildRequires:	gtk2-devel >= 2.6.0
-%endif
 BuildRequires:	dbus-glib-devel
 BuildRequires:	libguess-devel
 BuildRequires:  desktop-file-utils
