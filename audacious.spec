@@ -123,8 +123,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%name
 %dir %{_datadir}/%name/images
 %{_datadir}/%name/images/*.png
-%{_datadir}/%name/images/*.xpm
-%_datadir/pixmaps/audacious.*
 %_datadir/icons/hicolor/*/apps/*
 %{_mandir}/man1/*
 
