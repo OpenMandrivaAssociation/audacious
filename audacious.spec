@@ -122,6 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%name
 %dir %{_datadir}/%name/images
+%_datadir/%name/AUTHORS
+%_datadir/%name/COPYING
 %{_datadir}/%name/images/*.png
 %_datadir/icons/hicolor/*/apps/*
 %{_mandir}/man1/*
