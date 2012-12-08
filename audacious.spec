@@ -1,45 +1,29 @@
-%define name audacious
-%define version 3.3.2
-%define prerel 0
-%define rel 1
-%if %prerel
-%define release	%mkrel -c  %prerel %rel
-%define fname %name-%version-%prerel
-%else
-%define fname %name-%version
-%define release %mkrel %rel
-%endif
-%define major 		1
-%define libname 	%mklibname %{name} %{major}
-%define major2 		2
-%define libname2 	%mklibname %{name} %{major2}
-%define libname_devel 	%mklibname %{name} -d
+%define major 1
+%define libname %mklibname %{name} %{major}
+%define major2 2
+%define libname2 %mklibname %{name} %{major2}
+%define libname_devel %mklibname %{name} -d
 
 Summary:	A versatile and handy media player
-Name:		%name
-Version:        %version
-Release:	%release
+Name:		audacious
+Version:	3.3.2
+Release:	2
 Epoch:		5
-Source0:	http://distfiles.audacious-media-player.org/%fname.tar.bz2
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:  libmcs-devel >= 0.4.0
-BuildRequires:	gtk+3-devel
-BuildRequires:	dbus-glib-devel
-BuildRequires:	libguess-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  chrpath
-BuildRequires:  gtk-doc
-Suggests: audacious-pulse
-Requires: audacious-plugins
-Requires:	%{libname} = %epoch:%{version}
-Requires:	%{libname2} = %epoch:%{version}
-Provides:	beep-media-player
-Obsoletes:	beep-media-player
-Requires(post):  desktop-file-utils
-Requires(postun):  desktop-file-utils
+Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
+BuildRequires:	pkgconfig(libmcs)
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(libguess)
+BuildRequires:	desktop-file-utils
+BuildRequires:	chrpath
+BuildRequires:	gtk-doc
+Suggests:	audacious-pulse
+Requires:	audacious-plugins
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libname2} = %{EVRD}
 
 %description
 Audacious is a media player based on the BMP music playing application.
@@ -48,7 +32,6 @@ Its primary goals are usability and usage of current desktop standards.
 %package -n %{libname}
 Group:		System/Libraries
 Summary:	Library for %{name}
-Epoch: %epoch
 
 %description -n %{libname}
 Audacious is a media player based on the BMP music playing application.
@@ -58,7 +41,6 @@ This package contains the library needed by %{name}.
 %package -n %{libname2}
 Group:		System/Libraries
 Summary:	Library for %{name}
-Epoch: %epoch
 
 %description -n %{libname2}
 Audacious is a media player based on the BMP music playing application.
@@ -68,12 +50,10 @@ This package contains the library needed by %{name}.
 %package -n %{libname_devel}
 Summary:	Development files for %{name}
 Group:		Development/C
-Requires:	%{libname} = %{epoch}:%{version}
-Requires:	%{libname2} = %{epoch}:%{version}
-Provides:	lib%{name}-devel = %{epoch}:%{version}-%{release}
-Provides:	%{name}-devel = %{epoch}:%{version}-%{release}
-Obsoletes:	%mklibname -d %name 5
-Epoch: %epoch
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libname2} = %{EVRD}
+Provides:	lib%{name}-devel = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
 
 %description -n %{libname_devel}
 Audacious is a media player based on the BMP music playing application.
@@ -82,8 +62,7 @@ This package contains the files needed for developing applications
 which use %{name}.
 
 %prep
-%setup -q -n %fname
-%apply_patches
+%setup -q
 
 %build
 #gw: else libid3tag does not build
@@ -91,57 +70,40 @@ which use %{name}.
 %configure2_5x --enable-chardet
 
 %make
-#make documentation-build
 
 %install
-rm -rf $RPM_BUILD_ROOT installed-docs
 %makeinstall_std
-chrpath -d %buildroot%_bindir/*
-#mkdir installed-docs
-#cp -r doc/audacious/html installed-docs/audacious
-#cp -r doc/libaudacious/html installed-docs/libaudacious
+chrpath -d %{buildroot}%{_bindir}/*
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --add-category="Audio" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
-rm -rf %buildroot%_datadir/audacious/applications/
+  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
+rm -rf %{buildroot}%{_datadir}/audacious/applications/
 
-%find_lang %name
-rm -f %buildroot%_includedir/mp4.h
+%find_lang %{name}
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+rm -f %{buildroot}%{_includedir}/mp4.h
 
-%files -f %name.lang
-%defattr(0755,root,root,0755)
-%_bindir/audtool
-%{_bindir}/%{name}
-%defattr(0644,root,root,0755)
+%files -f %{name}.lang
 %doc AUTHORS
+%{_bindir}/audtool
+%{_bindir}/%{name}
+%{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%dir %{_datadir}/%name
-%dir %{_datadir}/%name/images
-%_datadir/%name/AUTHORS
-%_datadir/%name/COPYING
-%{_datadir}/%name/images/*.png
-%_datadir/icons/hicolor/*/apps/*
+%{_iconsdir}/hicolor/*/apps/*
 %{_mandir}/man1/*
 
 %files -n %{libname}
-%defattr(0644,root,root,0755)
 %{_libdir}/*.so.%{major}*
 
 %files -n %{libname2}
-%defattr(0644,root,root,0755)
-%_libdir/libaudclient.so.%{major2}*
+%{_libdir}/libaudclient.so.%{major2}*
 
 %files -n %{libname_devel}
-%defattr(0644,root,root,0755)
-%dir %{_includedir}/%name
+%{_includedir}/%{name}
 %{_includedir}/libaudcore
 %{_includedir}/libaudgui
-
-%{_includedir}/%name/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
+
