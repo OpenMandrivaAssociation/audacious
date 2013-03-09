@@ -65,10 +65,10 @@ This package contains the library needed by %{name}.
 %package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
-Requires:	%{_libcore} = %{EVRD}
-Requires:	%{_libgui} = %{EVRD}
-Requires:	%{_libtag} = %{EVRD}
-Requires:	%{_libclient} = %{EVRD}
+Requires:	%{libcore} = %{EVRD}
+Requires:	%{libgui} = %{EVRD}
+Requires:	%{libtag} = %{EVRD}
+Requires:	%{libclient} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
 %description -n %{devname}
