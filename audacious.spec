@@ -1,16 +1,15 @@
 %define major	1
 %define maj2	2
-%define	libcore	%mklibname audcore %{major}
-%define	libgui	%mklibname audgui %{major}
+%define	libcore	%mklibname audcore %{maj2}
+%define	libgui	%mklibname audgui %{maj2}
 %define	libtag	%mklibname audtag %{major}
-%define	libclient	%mklibname audclient %{maj2}
 %define devname %mklibname %{name} -d
 
 Summary:	A versatile and handy media player
 Name:		audacious
 Epoch:		5
-Version:	3.4.1
-Release:	7
+Version:	3.5.1
+Release:	1
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
@@ -21,7 +20,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gtk-doc
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(gtk+-3.0)
-BuildRequires:	pkgconfig(libguess)
+BuildRequires:	pkgconfig(libguess) >= 1.2
 BuildRequires:	pkgconfig(libmcs)
 Requires:	audacious-plugins
 Suggests:	audacious-pulse
@@ -54,21 +53,12 @@ Conflicts:	%{_lib}audacious1 < 5:3.3.4-2
 %description -n %{libtag}
 This package contains the library needed by %{name}.
 
-%package -n %{libclient}
-Group:		System/Libraries
-Summary:	Library for %{name}
-Obsoletes:	%{_lib}audacious2 < 5:3.3.4-2
-
-%description -n %{libclient}
-This package contains the library needed by %{name}.
-
 %package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{libcore} = %{EVRD}
 Requires:	%{libgui} = %{EVRD}
 Requires:	%{libtag} = %{EVRD}
-Requires:	%{libclient} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
 %description -n %{devname}
@@ -114,16 +104,13 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %{_mandir}/man1/*
 
 %files -n %{libcore}
-%{_libdir}/libaudcore.so.%{major}*
+%{_libdir}/libaudcore.so.%{maj2}*
 
 %files -n %{libgui}
-%{_libdir}/libaudgui.so.%{major}*
+%{_libdir}/libaudgui.so.%{maj2}*
 
 %files -n %{libtag}
 %{_libdir}/libaudtag.so.%{major}*
-
-%files -n %{libclient}
-%{_libdir}/libaudclient.so.%{maj2}*
 
 %files -n %{devname}
 %{_includedir}/%{name}
