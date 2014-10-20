@@ -21,7 +21,6 @@ BuildRequires:	gtk-doc
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libguess) >= 1.2
-BuildRequires:	pkgconfig(libmcs)
 Requires:	audacious-plugins
 Suggests:	audacious-pulse
 
