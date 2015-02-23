@@ -1,27 +1,40 @@
-%define major	1
-%define maj2	2
+%define major	2
+%define maj2	3
+%define majqt	0
 %define	libcore	%mklibname audcore %{maj2}
 %define	libgui	%mklibname audgui %{maj2}
+%define	libqt	%mklibname audqt %{majqt}
 %define	libtag	%mklibname audtag %{major}
 %define devname %mklibname %{name} -d
+%define beta beta1
+
+%bcond_without gtk
 
 Summary:	A versatile and handy media player
 Name:		audacious
 Epoch:		5
-Version:	3.5.1
-Release:	2
+Version:	3.6
+%if "%beta" != ""
+Release:	0.%beta.1
+%else
+Release:	1
+%endif
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
-Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
+Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}%{?beta:-%{beta}}.tar.bz2
 
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
 BuildRequires:	gtk-doc
 BuildRequires:	pkgconfig(dbus-glib-1)
+%if %{with gtk}
 BuildRequires:	pkgconfig(gtk+-3.0)
+%endif
+BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(libguess) >= 1.2
-Requires:	audacious-plugins
+Requires:	audacious-ui = %{EVRD}
+Suggests:	audacious-plugins
 Suggests:	audacious-pulse
 
 %description
@@ -40,9 +53,20 @@ This package contains the library needed by %{name}.
 Group:		System/Libraries
 Summary:	Library for %{name}
 Conflicts:	%{_lib}audacious1 < 5:3.3.4-2
+Provides:	audacious-ui = %{EVRD}
 
 %description -n %{libgui}
 This package contains the library needed by %{name}.
+
+%package -n %{libqt}
+Group:		System/Libraries
+Summary:	Qt interface library for %{name}
+Conflicts:	%{_lib}audacious1 < 5:3.3.4-2
+Provides:	audacious-ui = %{EVRD}
+
+%description -n %{libqt}
+This package contains the library needed by
+the Qt interface of %{name}.
 
 %package -n %{libtag}
 Group:		System/Libraries
@@ -56,7 +80,10 @@ This package contains the library needed by %{name}.
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{libcore} = %{EVRD}
+%if %{with gtk}
 Requires:	%{libgui} = %{EVRD}
+%endif
+Requires:	%{libqt} = %{EVRD}
 Requires:	%{libtag} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
@@ -67,13 +94,17 @@ This package contains the files needed for developing applications
 which use %{name}.
 
 %prep
-%setup -q
+%setup -qn %{name}-%{version}%{?beta:-%{beta}}
 
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%configure2_5x \
-	--enable-chardet
+%configure \
+	--enable-chardet \
+%if %{without gtk}
+	--disable-gtk \
+%endif
+	--enable-qt
 
 %make
 
@@ -108,13 +139,19 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %files -n %{libgui}
 %{_libdir}/libaudgui.so.%{maj2}*
 
+%files -n %{libqt}
+%{_libdir}/libaudqt.so.%{majqt}*
+
 %files -n %{libtag}
 %{_libdir}/libaudtag.so.%{major}*
 
 %files -n %{devname}
 %{_includedir}/%{name}
 %{_includedir}/libaudcore
+%if %{with gtk}
 %{_includedir}/libaudgui
+%endif
+%{_includedir}/libaudqt
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
