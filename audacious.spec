@@ -6,14 +6,14 @@
 %define	libqt	%mklibname audqt %{majqt}
 %define	libtag	%mklibname audtag %{major}
 %define devname %mklibname %{name} -d
-%define beta beta1
+%define beta %{nil}
 
 %bcond_without gtk
 
 Summary:	A versatile and handy media player
 Name:		audacious
 Epoch:		5
-Version:	3.6
+Version:	3.6.1
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
@@ -22,14 +22,14 @@ Release:	1
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
-Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}%{?beta:-%{beta}}.tar.bz2
+Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
 BuildRequires:	gtk-doc
 BuildRequires:	pkgconfig(dbus-glib-1)
 %if %{with gtk}
-BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(gtk+-2.0)
 %endif
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(libguess) >= 1.2
@@ -94,7 +94,7 @@ This package contains the files needed for developing applications
 which use %{name}.
 
 %prep
-%setup -qn %{name}-%{version}%{?beta:-%{beta}}
+%setup -qn %{name}-%{version}
 
 %build
 #gw: else libid3tag does not build
