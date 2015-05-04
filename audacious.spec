@@ -1,77 +1,61 @@
-%define major	1
-%define maj2	2
-%define	libcore	%mklibname audcore %{major}
-%define	libgui	%mklibname audgui %{major}
-%define	libtag	%mklibname audtag %{major}
-%define	libclient	%mklibname audclient %{maj2}
-%define devname %mklibname %{name} -d
+%define major 1
+%define libname %mklibname %{name} %{major}
+%define major2 2
+%define libname2 %mklibname %{name} %{major2}
+%define libname_devel %mklibname %{name} -d
 
 Summary:	A versatile and handy media player
 Name:		audacious
+Version:	3.4.3
+Release:	2
 Epoch:		5
-Version:	3.3.4
-Release:	4
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-
-BuildRequires:	chrpath
-BuildRequires:	desktop-file-utils
-BuildRequires:	gtk-doc
-BuildRequires:	pkgconfig(dbus-glib-1)
-BuildRequires:	pkgconfig(gtk+-3.0)
-BuildRequires:	pkgconfig(libguess)
 BuildRequires:	pkgconfig(libmcs)
-Requires:	audacious-plugins
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(libguess)
+BuildRequires:	desktop-file-utils
+BuildRequires:	chrpath
+BuildRequires:	gtk-doc
 Suggests:	audacious-pulse
+Requires:	audacious-plugins
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libname2} = %{EVRD}
 
 %description
 Audacious is a media player based on the BMP music playing application.
 Its primary goals are usability and usage of current desktop standards.
 
-%package -n %{libcore}
+%package -n %{libname}
 Group:		System/Libraries
 Summary:	Library for %{name}
-Obsoletes:	%{_lib}audacious1 < 5:3.3.4-2
 
-%description -n %{libcore}
+%description -n %{libname}
+Audacious is a media player based on the BMP music playing application.
+Its primary goals are usability and usage of current desktop standards.
 This package contains the library needed by %{name}.
 
-%package -n %{libgui}
+%package -n %{libname2}
 Group:		System/Libraries
 Summary:	Library for %{name}
-Conflicts:	%{_lib}audacious1 < 5:3.3.4-2
 
-%description -n %{libgui}
+%description -n %{libname2}
+Audacious is a media player based on the BMP music playing application.
+Its primary goals are usability and usage of current desktop standards.
 This package contains the library needed by %{name}.
 
-%package -n %{libtag}
-Group:		System/Libraries
-Summary:	Library for %{name}
-Conflicts:	%{_lib}audacious1 < 5:3.3.4-2
-
-%description -n %{libtag}
-This package contains the library needed by %{name}.
-
-%package -n %{libclient}
-Group:		System/Libraries
-Summary:	Library for %{name}
-Obsoletes:	%{_lib}audacious2 < 5:3.3.4-2
-
-%description -n %{libclient}
-This package contains the library needed by %{name}.
-
-%package -n %{devname}
+%package -n %{libname_devel}
 Summary:	Development files for %{name}
 Group:		Development/C
-Requires:	%{libcore} = %{EVRD}
-Requires:	%{libgui} = %{EVRD}
-Requires:	%{libtag} = %{EVRD}
-Requires:	%{libclient} = %{EVRD}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libname2} = %{EVRD}
+Provides:	lib%{name}-devel = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
-%description -n %{devname}
+%description -n %{libname_devel}
 Audacious is a media player based on the BMP music playing application.
 Its primary goals are usability and usage of current desktop standards.
 This package contains the files needed for developing applications
@@ -83,8 +67,7 @@ which use %{name}.
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%configure2_5x \
-	--enable-chardet
+%configure2_5x --enable-chardet
 
 %make
 
@@ -93,11 +76,9 @@ which use %{name}.
 chrpath -d %{buildroot}%{_bindir}/*
 
 desktop-file-install --vendor="" \
-	--remove-category="Application" \
-	--add-category="Audio" \
-	--dir %{buildroot}%{_datadir}/applications \
-	%{buildroot}%{_datadir}/applications/*
-
+  --remove-category="Application" \
+  --add-category="Audio" \
+  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
 rm -rf %{buildroot}%{_datadir}/audacious/applications/
 
 %find_lang %{name}
@@ -113,22 +94,15 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %{_iconsdir}/hicolor/*/apps/*
 %{_mandir}/man1/*
 
-%files -n %{libcore}
-%{_libdir}/libaudcore.so.%{major}*
+%files -n %{libname}
+%{_libdir}/*.so.%{major}*
 
-%files -n %{libgui}
-%{_libdir}/libaudgui.so.%{major}*
+%files -n %{libname2}
+%{_libdir}/libaudclient.so.%{major2}*
 
-%files -n %{libtag}
-%{_libdir}/libaudtag.so.%{major}*
-
-%files -n %{libclient}
-%{_libdir}/libaudclient.so.%{maj2}*
-
-%files -n %{devname}
+%files -n %{libname_devel}
 %{_includedir}/%{name}
 %{_includedir}/libaudcore
 %{_includedir}/libaudgui
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
-
