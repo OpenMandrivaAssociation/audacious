@@ -9,8 +9,8 @@
 Summary:	A versatile and handy media player
 Name:		audacious
 Epoch:		5
-Version:	3.3.4
-Release:	4
+Version:	3.4.3
+Release:	3
 License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
