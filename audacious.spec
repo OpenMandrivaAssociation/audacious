@@ -97,6 +97,10 @@ which use %{name}.
 %setup -qn %{name}-%{version}
 
 %build
+%ifarch %ix86
+export CC=gcc
+export CXX=g++
+%endif
 
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
