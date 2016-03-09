@@ -13,11 +13,11 @@
 Summary:	A versatile and handy media player
 Name:		audacious
 Epoch:		5
-Version:	3.6.2
+Version:	3.7.1
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
-Release:	2
+Release:	1
 %endif
 License:	GPLv3+
 Group:		Sound
@@ -97,6 +97,7 @@ which use %{name}.
 %setup -qn %{name}-%{version}
 
 %build
+
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
 %configure \

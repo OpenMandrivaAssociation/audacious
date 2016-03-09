@@ -1,7 +1,2 @@
-removed_sources:
-  audacious-3.3.4.tar.bz2: d1050fb88a59b46c0c9bbb1af0e7efc2b02f2b4d
-  audacious-3.4.1.tar.bz2: 4066bba6cb0e2d6602d65a2f35770d3b8a6c718f
-  audacious-3.5.1.tar.bz2: 6931871277f188eb2297842e76222be66dd7bbbe
-  audacious-3.6.1.tar.bz2: 0aa9bc46ed75669f6d3f8a3905bcd372bf01ad48
 sources:
-  audacious-3.6.2.tar.bz2: d4c7b0b0e182b42b242a6e711e236174b8127c24
+  audacious-3.7.1.tar.bz2: 9c758b06c69117738c50786ca3809234b5d21570
