@@ -17,7 +17,7 @@ Version:	3.7.1
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
-Release:	1
+Release:	2
 %endif
 License:	GPLv3+
 Group:		Sound
