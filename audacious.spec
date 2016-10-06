@@ -1,6 +1,6 @@
-%define major	2
-%define maj2	3
-%define majqt	0
+%define major	3
+%define maj2	4
+%define majqt	1
 %define	libcore	%mklibname audcore %{maj2}
 %define	libgui	%mklibname audgui %{maj2}
 %define	libqt	%mklibname audqt %{majqt}
@@ -13,11 +13,11 @@
 Summary:	A versatile and handy media player
 Name:		audacious
 Epoch:		5
-Version:	3.7.1
+Version:	3.8
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
-Release:	2
+Release:	1
 %endif
 License:	GPLv3+
 Group:		Sound
