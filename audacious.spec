@@ -16,7 +16,7 @@ Version:	3.10.1
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
-Release:	1
+Release:	2
 %endif
 License:	GPLv3+
 Group:		Sound
@@ -33,7 +33,7 @@ BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(libguess) >= 1.2
 Requires:	audacious-ui = %{EVRD}
-Suggests:	audacious-plugins
+Requires:	audacious-plugins
 Suggests:	audacious-pulse
 
 %description
