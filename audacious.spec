@@ -16,7 +16,7 @@ Version:	3.10.1
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
-Release:	2
+Release:	3
 %endif
 License:	GPLv3+
 Group:		Sound
@@ -93,14 +93,9 @@ This package contains the files needed for developing applications
 which use %{name}.
 
 %prep
-%setup -qn %{name}-%{version}
+%autosetup -p1
 
 %build
-%ifarch %ix86
-export CC=gcc
-export CXX=g++
-%endif
-
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
 %configure \
@@ -113,7 +108,7 @@ export CXX=g++
 %make
 
 %install
-%makeinstall_std
+%make_install
 chrpath -d %{buildroot}%{_bindir}/*
 
 desktop-file-install --vendor="" \
@@ -140,8 +135,10 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %files -n %{libcore}
 %{_libdir}/libaudcore.so.%{maj2}*
 
+%if %{with gtk}
 %files -n %{libgui}
 %{_libdir}/libaudgui.so.%{maj2}*
+%endif
 
 %files -n %{libqt}
 %{_libdir}/libaudqt.so.%{majqt}*
