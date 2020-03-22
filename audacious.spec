@@ -16,7 +16,7 @@ Version:	4.0
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
-Release:	3
+Release:	1
 %endif
 License:	GPLv3+
 Group:		Sound
@@ -137,7 +137,7 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 
 %if %{with gtk}
 %files -n %{libgui}
-%{_libdir}/libaudgui.so.%{maj2}*
+#{_libdir}/libaudgui.so.%{maj2}*
 %endif
 
 %files -n %{libqt}
