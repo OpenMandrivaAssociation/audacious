@@ -23,13 +23,12 @@ Group:		Sound
 Url:		http://audacious-media-player.org/
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 
+BuildRequires:  meson
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
 BuildRequires:	gtk-doc
 BuildRequires:	pkgconfig(dbus-glib-1)
-%if %{with gtk}
 BuildRequires:	pkgconfig(gtk+-2.0)
-%endif
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(libguess) >= 1.2
 Requires:	audacious-ui = %{EVRD}
@@ -98,17 +97,12 @@ which use %{name}.
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%configure \
-	--enable-chardet \
-#%if %{without gtk}
-	--enable-gtk \
-#%endif
-	--enable-qt
+%meson
 
-%make_build
+%meson_build
 
 %install
-%make_install
+%meson_install
 chrpath -d %{buildroot}%{_bindir}/*
 
 desktop-file-install --vendor="" \
