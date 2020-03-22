@@ -12,7 +12,7 @@
 
 Summary:	A versatile and handy media player
 Name:		audacious
-Version:	3.10.1
+Version:	4.0
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
@@ -105,7 +105,7 @@ which use %{name}.
 %endif
 	--enable-qt
 
-%make
+%make_build
 
 %install
 %make_install
