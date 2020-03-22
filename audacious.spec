@@ -150,7 +150,7 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %{_includedir}/%{name}
 %{_includedir}/libaudcore
 %if %{with gtk}
-%{_includedir}/libaudgui
+#{_includedir}/libaudgui
 %endif
 %{_includedir}/libaudqt
 %{_libdir}/*.so
