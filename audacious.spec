@@ -27,8 +27,8 @@ BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(libguess) >= 1.2
 Requires:	audacious-ui = %{EVRD}
-Requires:	audacious-plugins
-Suggests:	audacious-pulse
+Recommends:	audacious-plugins
+Recommends:	audacious-pulse
 
 %description
 Audacious is a media player based on the BMP music playing application.
@@ -124,4 +124,3 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %{_includedir}/libaudqt
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
-
