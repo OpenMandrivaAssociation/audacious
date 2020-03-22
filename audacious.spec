@@ -100,9 +100,9 @@ which use %{name}.
 %define _disable_ld_no_undefined 1
 %configure \
 	--enable-chardet \
-%if %{without gtk}
-	--disable-gtk \
-%endif
+#%if %{without gtk}
+	--enable-gtk \
+#%endif
 	--enable-qt
 
 %make_build
