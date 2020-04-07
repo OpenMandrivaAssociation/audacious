@@ -9,11 +9,11 @@
 
 Summary:	A versatile and handy media player
 Name:		audacious
-Version:	4.0
+Version:	4.0.1
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
-Release:	2
+Release:	1
 %endif
 License:	GPLv3+
 Group:		Sound
