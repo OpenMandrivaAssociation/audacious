@@ -9,7 +9,7 @@
 
 Summary:	A versatile and handy media player
 Name:		audacious
-Version:	4.0.2
+Version:	4.0.3
 %if "%beta" != ""
 Release:	0.%beta.1
 %else
