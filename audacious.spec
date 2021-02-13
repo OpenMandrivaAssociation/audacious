@@ -9,7 +9,7 @@
 
 Summary:	A versatile and handy media player
 Name:		audacious
-Version:	4.0.5
+Version:	4.1
 %if "%beta" != ""
 Release:	1
 %else
@@ -80,7 +80,7 @@ which use %{name}.
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%meson
+%meson -Dgtk=false
 
 %meson_build
 
