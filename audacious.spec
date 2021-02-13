@@ -82,7 +82,7 @@ which use %{name}.
 %define _disable_ld_no_undefined 1
 %meson
 
-%meson_build
+%meson_build -Dgtk=disabled
 
 %install
 %meson_install
