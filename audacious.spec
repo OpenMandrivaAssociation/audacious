@@ -80,9 +80,9 @@ which use %{name}.
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%meson
+%meson -Dgtk=false
 
-%meson_build -Dgtk=false
+%meson_build
 
 %install
 %meson_install
