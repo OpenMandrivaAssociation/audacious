@@ -13,7 +13,7 @@ Version:	4.1
 %if "%beta" != ""
 Release:	1
 %else
-Release:	1
+Release:	2
 %endif
 License:	GPLv3+
 Group:		Sound
@@ -26,6 +26,12 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(libguess) >= 1.2
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(libguess) >= 1.2
+BuildRequires:	pkgconfig(sm)
+BuildRequires:	pkgconfig(ice)
+
 Requires:	audacious-ui = %{EVRD}
 Requires:	audacious-plugins
 Recommends:	audacious-pulse
@@ -80,7 +86,7 @@ which use %{name}.
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%meson -Dgtk=false
+%meson
 
 %meson_build
 
