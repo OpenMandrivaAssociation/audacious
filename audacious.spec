@@ -4,6 +4,7 @@
 %define	libcore	%mklibname audcore %{maj2}
 %define	libqt	%mklibname audqt %{majqt}
 %define	libtag	%mklibname audtag %{major}
+%define	libaudgui %mklibname audgu %{maj2}
 %define devname %mklibname %{name} -d
 %define beta %{nil}
 
@@ -66,12 +67,20 @@ Conflicts:	%{_lib}audacious1 < 5:3.3.4-2
 %description -n %{libtag}
 This package contains the library needed by %{name}.
 
+%package -n %{libaudgui}
+Group:		System/Libraries
+Summary:	Library for %{name}
+
+%description -n %{libaudgui}
+This package contains the library needed by %{name}.
+
 %package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{libcore} = %{EVRD}
 Requires:	%{libqt} = %{EVRD}
 Requires:	%{libtag} = %{EVRD}
+Requires:	%{libaudgui} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
 %description -n %{devname}
@@ -124,9 +133,13 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %files -n %{libtag}
 %{_libdir}/libaudtag.so.%{major}*
 
+%files -n %{libaudgu}
+%{_libdir}/libaudgui.so.%{maj2}*
+
 %files -n %{devname}
 %{_includedir}/%{name}
 %{_includedir}/libaudcore
 %{_includedir}/libaudqt
+%{_includedir}/libaudgui
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
