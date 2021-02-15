@@ -4,7 +4,7 @@
 %define	libcore	%mklibname audcore %{maj2}
 %define	libqt	%mklibname audqt %{majqt}
 %define	libtag	%mklibname audtag %{major}
-%define	libaudgui %mklibname audgu %{maj2}
+%define	libaudgui %mklibname audgui %{maj2}
 %define devname %mklibname %{name} -d
 %define beta %{nil}
 
@@ -133,7 +133,7 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %files -n %{libtag}
 %{_libdir}/libaudtag.so.%{major}*
 
-%files -n %{libaudgu}
+%files -n %{libaudgui}
 %{_libdir}/libaudgui.so.%{maj2}*
 
 %files -n %{devname}
