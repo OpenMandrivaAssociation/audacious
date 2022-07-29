@@ -104,8 +104,7 @@ which use %{name}.
 chrpath -d %{buildroot}%{_bindir}/*
 
 desktop-file-install --vendor="" \
-	--remove-category="Application" \
-	--add-category="Audio" \
+	--add-category="X-Audio" \
 	--dir %{buildroot}%{_datadir}/applications \
 	%{buildroot}%{_datadir}/applications/*
 
