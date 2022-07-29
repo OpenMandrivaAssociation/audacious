@@ -103,13 +103,12 @@ which use %{name}.
 %meson_install
 chrpath -d %{buildroot}%{_bindir}/*
 
-desktop-file-install --vendor="" \
-	--remove-category="Application" \
-	--add-category="Audio" \
-	--dir %{buildroot}%{_datadir}/applications \
-	%{buildroot}%{_datadir}/applications/*
+#desktop-file-install --vendor="" \
+#	--add-category="X-Audio" \
+#	--dir %{buildroot}%{_datadir}/applications \
+#	%{buildroot}%{_datadir}/applications/*
 
-rm -rf %{buildroot}%{_datadir}/audacious/applications/
+#rm -rf %{buildroot}%{_datadir}/audacious/applications/
 
 %find_lang %{name}
 
