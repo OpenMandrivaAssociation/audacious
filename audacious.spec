@@ -14,7 +14,7 @@ Version:	4.2
 %if "%beta" != ""
 Release:	1
 %else
-Release:	1
+Release:	2
 %endif
 License:	GPLv3+
 Group:		Sound
@@ -24,11 +24,8 @@ Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 BuildRequires:  meson
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
-BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(libguess) >= 1.2
-BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(libguess) >= 1.2
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(ice)
@@ -67,20 +64,12 @@ Conflicts:	%{_lib}audacious1 < 5:3.3.4-2
 %description -n %{libtag}
 This package contains the library needed by %{name}.
 
-%package -n %{libaudgui}
-Group:		System/Libraries
-Summary:	Library for %{name}
-
-%description -n %{libaudgui}
-This package contains the library needed by %{name}.
-
 %package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Requires:	%{libcore} = %{EVRD}
 Requires:	%{libqt} = %{EVRD}
 Requires:	%{libtag} = %{EVRD}
-Requires:	%{libaudgui} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
 %description -n %{devname}
@@ -95,7 +84,7 @@ which use %{name}.
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%meson
+%meson -Dgtk=false
 
 %meson_build
 
@@ -132,13 +121,9 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %files -n %{libtag}
 %{_libdir}/libaudtag.so.%{major}*
 
-%files -n %{libaudgui}
-%{_libdir}/libaudgui.so.%{maj2}*
-
 %files -n %{devname}
 %{_includedir}/%{name}
 %{_includedir}/libaudcore
 %{_includedir}/libaudqt
-%{_includedir}/libaudgui
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
