@@ -25,6 +25,7 @@ BuildRequires:  meson
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
 BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(libguess) >= 1.2
 BuildRequires:	pkgconfig(libguess) >= 1.2
 BuildRequires:	pkgconfig(sm)
