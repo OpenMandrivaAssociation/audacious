@@ -10,11 +10,11 @@
 
 Summary:	A versatile and handy media player
 Name:		audacious
-Version:	4.2
+Version:	4.3
 %if "%beta" != ""
-Release:	2
+Release:	1
 %else
-Release:	3
+Release:	1
 %endif
 License:	GPLv3+
 Group:		Sound
@@ -24,8 +24,10 @@ Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 BuildRequires:  meson
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
+BuildRequires:  pkgconfig(libarchive)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libguess) >= 1.2
 BuildRequires:	pkgconfig(libguess) >= 1.2
 BuildRequires:	pkgconfig(sm)
@@ -85,7 +87,11 @@ which use %{name}.
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-%meson -Dgtk=false
+%meson \
+        -Dgtk=false \
+        -Dqt=true \
+        -Dgtk3=true \
+        -Dlibarchive=true
 
 %meson_build
 
