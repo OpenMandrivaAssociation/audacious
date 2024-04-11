@@ -26,6 +26,7 @@ Patch1:		4967240899b6f36e3e5dfc68f1b8963824562fe9.diff
 BuildRequires:  meson
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
+BuildRequires:	gettext
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:	pkgconfig(Qt5Widgets)
 BuildRequires:	pkgconfig(glib-2.0)
