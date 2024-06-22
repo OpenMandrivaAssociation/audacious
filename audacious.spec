@@ -20,8 +20,6 @@ License:	GPLv3+
 Group:		Sound
 Url:		http://audacious-media-player.org/
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# fix new clang builds from git
-Patch1:		4967240899b6f36e3e5dfc68f1b8963824562fe9.diff
 
 BuildRequires:  meson
 BuildRequires:	chrpath
