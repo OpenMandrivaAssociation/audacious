@@ -1,6 +1,6 @@
 %define major	3
 %define maj2	5
-%define majqt	2
+%define majqt	3
 %define	libcore	%mklibname audcore %{maj2}
 %define	libqt	%mklibname audqt %{majqt}
 %define	libtag	%mklibname audtag %{major}
@@ -18,15 +18,18 @@ Release:	1
 %endif
 License:	GPLv3+
 Group:		Sound
-Url:		http://audacious-media-player.org/
-Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
+Url:		https://audacious-media-player.org/
+Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 
 BuildRequires:  meson
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:  pkgconfig(libarchive)
-BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(Qt6Core)
+BuildRequires:	pkgconfig(Qt6Gui)
+BuildRequires:	pkgconfig(Qt6Svg)
+BuildRequires:	pkgconfig(Qt6Widgets)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libguess) >= 1.2
@@ -93,7 +96,7 @@ export CXX=g++
 %meson \
         -Dgtk=false \
         -Dqt=true \
-        -Dgtk3=true \
+        -Dgtk=true \
         -Dlibarchive=true
 
 %meson_build
@@ -124,6 +127,7 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 
 %files -n %{libcore}
 %{_libdir}/libaudcore.so.%{maj2}*
+%{_libdir}/libaudgui.so.6*
 
 %files -n %{libqt}
 %{_libdir}/libaudqt.so.%{majqt}*
@@ -135,5 +139,6 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %{_includedir}/%{name}
 %{_includedir}/libaudcore
 %{_includedir}/libaudqt
+%{_includedir}/libaudgui
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
