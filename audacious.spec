@@ -1,6 +1,6 @@
 %define major	3
 %define maj2	5
-%define majqt	2
+%define majqt	3
 %define	libcore	%mklibname audcore %{maj2}
 %define	libqt	%mklibname audqt %{majqt}
 %define	libtag	%mklibname audtag %{major}
