@@ -26,6 +26,9 @@ BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:  pkgconfig(libarchive)
+BuildRequires:	pkgconfig(Qt6Core)
+BuildRequires:	pkgconfig(Qt6Gui)
+BuildRequires:	pkgconfig(Qt6Svg)
 BuildRequires:	pkgconfig(Qt6Widgets)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
