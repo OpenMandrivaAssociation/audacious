@@ -18,15 +18,15 @@ Release:	1
 %endif
 License:	GPLv3+
 Group:		Sound
-Url:		http://audacious-media-player.org/
-Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
+Url:		https://audacious-media-player.org/
+Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 
 BuildRequires:  meson
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:  pkgconfig(libarchive)
-BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(Qt6Widgets)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libguess) >= 1.2
@@ -93,7 +93,7 @@ export CXX=g++
 %meson \
         -Dgtk=false \
         -Dqt=true \
-        -Dgtk3=true \
+        -Dgtk=true \
         -Dlibarchive=true
 
 %meson_build
