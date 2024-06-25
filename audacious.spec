@@ -127,6 +127,7 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 
 %files -n %{libcore}
 %{_libdir}/libaudcore.so.%{maj2}*
+%{_libdir}/libaudgui.so.6*
 
 %files -n %{libqt}
 %{_libdir}/libaudqt.so.%{majqt}*
@@ -138,5 +139,6 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %{_includedir}/%{name}
 %{_includedir}/libaudcore
 %{_includedir}/libaudqt
+%{_includedir}/libaudgui
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
