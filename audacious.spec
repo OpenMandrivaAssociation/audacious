@@ -1,21 +1,19 @@
+%bcond_without gtk
+
 %define major	3
 %define maj2	5
 %define majqt	3
+%define majgtk	6
 %define	libcore	%mklibname audcore %{maj2}
 %define	libqt	%mklibname audqt %{majqt}
 %define	libtag	%mklibname audtag %{major}
-%define	libaudgui %mklibname audgui %{maj2}
+%define	libaudgui %mklibname audgui %{majgtk}
 %define devname %mklibname %{name} -d
-%define beta %{nil}
 
 Summary:	A versatile and handy media player
 Name:		audacious
-Version:	4.4.1
-%if "%beta" != ""
-Release:	1
-%else
-Release:	1
-%endif
+Version:	4.4.2
+Release:	%{?beta:0.%{beta}.}1
 License:	GPLv3+
 Group:		Sound
 Url:		https://audacious-media-player.org/
@@ -31,7 +29,9 @@ BuildRequires:	pkgconfig(Qt6Gui)
 BuildRequires:	pkgconfig(Qt6Svg)
 BuildRequires:	pkgconfig(Qt6Widgets)
 BuildRequires:	pkgconfig(glib-2.0)
+%if %{with gtk}
 BuildRequires:  pkgconfig(gtk+-3.0)
+%endif
 BuildRequires:	pkgconfig(libguess) >= 1.2
 BuildRequires:	pkgconfig(libguess) >= 1.2
 BuildRequires:	pkgconfig(sm)
@@ -63,6 +63,16 @@ Provides:	audacious-ui = %{EVRD}
 This package contains the library needed by
 the Qt interface of %{name}.
 
+%package -n %{libaudgui}
+Group:		System/Libraries
+Summary:	GTK interface library for %{name}
+Conflicts:	%{_lib}audacious1 < 5:3.3.4-2
+Provides:	audacious-ui = %{EVRD}
+
+%description -n %{libaudgui}
+This package contains the library needed by
+the GTK interface of %{name}.
+
 %package -n %{libtag}
 Group:		System/Libraries
 Summary:	Library for %{name}
@@ -91,12 +101,15 @@ which use %{name}.
 %build
 #gw: else libid3tag does not build
 %define _disable_ld_no_undefined 1
-export CC=gcc
-export CXX=g++
+#export CC=gcc
+#export CXX=g++
 %meson \
-        -Dgtk=false \
-        -Dqt=true \
+%if %{with gtk}
         -Dgtk=true \
+%else
+        -Dgtk=false \
+%endif
+        -Dqt=true \
         -Dlibarchive=true
 
 %meson_build
@@ -127,7 +140,11 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 
 %files -n %{libcore}
 %{_libdir}/libaudcore.so.%{maj2}*
-%{_libdir}/libaudgui.so.6*
+
+%if %{with gtk}
+%files -n %{libaudgui}
+%{_libdir}/libaudgui.so.%{majgtk}*
+%endif
 
 %files -n %{libqt}
 %{_libdir}/libaudqt.so.%{majqt}*
@@ -139,6 +156,8 @@ rm -f %{buildroot}%{_includedir}/mp4.h
 %{_includedir}/%{name}
 %{_includedir}/libaudcore
 %{_includedir}/libaudqt
+%if %{with gtk}
 %{_includedir}/libaudgui
+%endif
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
