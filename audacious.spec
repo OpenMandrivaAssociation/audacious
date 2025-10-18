@@ -1,5 +1,5 @@
-#gw: else libid3tag does not build
-%global _disable_ld_no_undefined 1
+#gw: else libid3tag won't not build
+#global _disable_ld_no_undefined 0
 
 %bcond_without gtk
 
@@ -15,7 +15,7 @@
 
 Summary:	A versatile and handy media player
 Name:	audacious
-Version:	4.5
+Version:	4.5.1
 Release:	%{?beta:0.%{beta}.}1
 License:	GPLv3+
 Group:	Sound
