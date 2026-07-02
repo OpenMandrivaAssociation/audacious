@@ -3,10 +3,10 @@
 
 %bcond_without gtk
 
-%define major	3
-%define maj2	5
-%define majqt	3
-%define majgtk	6
+%define major	4
+%define maj2	6
+%define majqt	4
+%define majgtk	7
 %define	libcore	%mklibname audcore %{maj2}
 %define	libqt	%mklibname audqt %{majqt}
 %define	libtag	%mklibname audtag %{major}
@@ -15,13 +15,12 @@
 
 Summary:	A versatile and handy media player
 Name:	audacious
-Version:	4.5.1
+Version:	4.6.1
 Release:	%{?beta:0.%{beta}.}1
 License:	GPLv3+
 Group:	Sound
 Url:		https://audacious-media-player.org/
 Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-
 BuildRequires:	chrpath
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -54,6 +53,7 @@ Its primary goals are usability and usage of current desktop standards.
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/metainfo/%{name}.metainfo.xml
 %{_iconsdir}/hicolor/*/apps/*
 %{_mandir}/man1/*
 
