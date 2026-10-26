@@ -15,9 +15,9 @@
 
 Summary:	A versatile and handy media player
 Name:	audacious
-Version:	4.6.1
+Version:	4.6.2
 Release:	%{?beta:0.%{beta}.}1
-License:	GPLv3+
+License:	GPL-3.0-or-later
 Group:	Sound
 Url:		https://audacious-media-player.org/
 Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
@@ -40,7 +40,8 @@ BuildRequires:	pkgconfig(Qt6Widgets)
 BuildRequires:	pkgconfig(sm)
 
 Requires:	audacious-ui = %{EVRD}
-Requires:	audacious-plugins
+# Avoid circular deps
+Recommends:	audacious-plugins
 Recommends:	audacious-pulse
 
 %description
